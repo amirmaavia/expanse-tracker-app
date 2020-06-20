@@ -17,17 +17,26 @@ export const TransactionProvider = ({children})=> {
     function addTransaction(transObj){
         dispatch({
             type: "ADD_TRANSACTION",
-            payload: { 
+            payload: {
+                 
                 amount: transObj.amount, 
-                desc: transObj.desc 
+                desc: transObj.desc,
+                id: Math.floor(Math.random()*100000)
             },
         })
     }
-
+    function deleteTransactions(transId){
+        dispatch({
+            type: "DELETE_TRANSACTION",
+            id: transId
+        })
+    }
+   
     return(
         <TransactionContext.Provider value={{
             transactions: state,
-            addTransaction
+            addTransaction,
+            deleteTransactions
         }}>
             {children}
         </TransactionContext.Provider>

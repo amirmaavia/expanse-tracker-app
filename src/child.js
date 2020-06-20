@@ -3,10 +3,9 @@ import { TransactionContext } from './transContext';
 
 
 function Child() {
-    let { transactions, addTransaction } = useContext(TransactionContext);
+    let { transactions, addTransaction,deleteTransactions } = useContext(TransactionContext);
     let [newDesc, setDesc] = useState("");
     let [newAmount, setAmount] = useState(0);
-
 
     const handleAddition = (event) => {
         event.preventDefault();
@@ -16,7 +15,8 @@ function Child() {
         }
         addTransaction({
             amount: Number(newAmount),
-            desc: newDesc
+            desc: newDesc,
+            
         });
 
         setDesc('');
@@ -48,9 +48,13 @@ function Child() {
     
     //     setExpense(filteredExpense);
     // };
-    
+      
+    //   const onDeleteHandler =(idx)=>{
+    //       transactions.splice(idx,1)
+    //   }
 
-    return (
+    
+     return (
         <div className="container">
             <h1 className="text-center">Expense Tracker</h1>
 
@@ -65,11 +69,12 @@ function Child() {
             <hr />
 
             <ul className="trnsaction-list">
+                
                 {transactions.map((transObj, ind) => {
-                    return (<li key={ind}>
+                    return (<li key={transObj.id}>
                         <span>{transObj.desc}</span>
                         <span>${transObj.amount}</span>
-                        {/* <button className="btn" onClick={removeHandler()}>x</button> */}
+                        <button className="btn" onClick = {()=>deleteTransactions(transObj.id)}>x</button> 
                     </li>
                     )
                 })}
